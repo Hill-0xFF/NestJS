@@ -14,9 +14,7 @@ A simple BackEnd system to start queues, with one user as admin, and another as 
 
 ## Installation
 
-```
-Download the repo, after downloading it, access it with:
-```
+`Download the repo, after downloading it, access it with:`
 
 ```bash
 $ cd SMS_NestJS
@@ -56,8 +54,8 @@ $ npm run test:cov
 
 ## Stay in touch
 
-- Author - [Hill-0xFF]()
+- Author - [Hill-0xFF](https://github.com/Hill-0xFF/)
 
 ## License
 
-No license for now.
+`No license for now.`
