@@ -16,7 +16,7 @@ model AdminTier1 {
   id Int @default(autoincrement()) @id
   name String
   email String @unique
-
+  queues Queues[]
   @@map(name: "barbers")
 }
 
@@ -26,4 +26,13 @@ model ClientTier1{
   email String @unique
   phone String?
   @@map(name: "client")
+}
+
+model Queues {
+  id String @default(uuid()) @id
+  created DateTime @db.Date @default(now()) // create date w/o timestamp
+  createdAt DateTime // create date and timestamp 
+  barber AdminTier1 @relation(fields: [barberId], references: [id]) // doesn't create this on db
+  barberId Int 
+  @@map(name: "queues")
 }
