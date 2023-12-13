@@ -12,9 +12,18 @@ datasource db {
 
 
 model AdminTier1 {
+  // id String @default(uuid()) @id
   id Int @default(autoincrement()) @id
   name String
   email String @unique
 
   @@map(name: "barbers")
+}
+
+model ClientTier1{
+  id String @default(uuid()) @id
+  name String
+  email String @unique
+  phone String?
+  @@map(name: "client")
 }
