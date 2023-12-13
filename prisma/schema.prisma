@@ -34,5 +34,17 @@ model Queues {
   createdAt DateTime // create date and timestamp 
   barber AdminTier1 @relation(fields: [barberId], references: [id]) // doesn't create this on db
   barberId Int 
+  customerqueues CustomerQueue[]
   @@map(name: "queues")
+}
+
+model CustomerQueue{
+  id Int @default(autoincrement()) @id
+  queue Queues @relation(fields: [queueId], references: [id])
+  queueId String
+  name String
+  email String
+  service String
+  isAwaiting Boolean @default(true)
+  @@map(name: "customerQueue")
 }
