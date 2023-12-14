@@ -1,4 +1,4 @@
-import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
 import { BarbersService } from './barbers.service';
 import { CreateBarbersDTO } from './dto/create-barber.dto';
 import { Response } from 'express';
@@ -30,5 +30,17 @@ export class BarbersController {
     return res
       .status(HttpStatus.CREATED)
       .json({ message: `Novo barbeiro criado!` });
+  }
+
+  @Get()
+  async getBarbers(@Res() res: Response) {
+    const barbers = await this.barbersService.findAllBarbers();
+    if (!barbers) {
+      return res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: `Não há barbeiros cadastrados!` });
+    }
+
+    return res.status(HttpStatus.OK).json({ barbers });
   }
 }
