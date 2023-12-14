@@ -18,6 +18,10 @@ export class BarbersService {
     return await this.prisma.adminTier1.findMany();
   }
 
+  async fineOneBarber(id: number) {
+    return await this.prisma.adminTier1.findFirst({ where: { id: id } });
+  }
+
   async create(data: CreateBarbersDTO) {
     return await this.prisma.adminTier1.create({
       data,

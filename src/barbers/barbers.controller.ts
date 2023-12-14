@@ -1,7 +1,16 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Res,
+} from '@nestjs/common';
 import { BarbersService } from './barbers.service';
 import { CreateBarbersDTO } from './dto/create-barber.dto';
 import { Response } from 'express';
+import { getBarberParam } from './dto/get-barber.dto';
 
 @Controller('barbers')
 export class BarbersController {
@@ -42,5 +51,17 @@ export class BarbersController {
     }
 
     return res.status(HttpStatus.OK).json({ barbers });
+  }
+
+  @Get(':id')
+  async getBarber(@Param('id') id: getBarberParam, @Res() res: Response) {
+    const barber = await this.barbersService.fineOneBarber(Number(id));
+    if (!barber) {
+      return res
+        .status(HttpStatus.NOT_FOUND)
+        .json({ message: `Barbeiro não encontrado!` });
+    }
+
+    return res.status(HttpStatus.OK).json({ barber });
   }
 }
