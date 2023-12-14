@@ -1,13 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { CreateBarbersDTO } from 'src/barbers/dto/create-barber.dto';
-import { Barber } from './entities/barber.entity';
+import { CreateBarbersDTO } from './dto/create-barber.dto';
 
 @Injectable()
 export class BarbersService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createBarberDto: CreateBarbersDTO): Promise<string | null> {
-    return `Adicionado barbeiro!`;
+  async findBarberEmail(email: string) {
+    return await this.prisma.adminTier1.findFirst({
+      where: { email },
+    });
+  }
+
+  async findAllBarbers() {
+    return await this.prisma.adminTier1.findMany();
+  }
+
+  async create(data: CreateBarbersDTO) {
+    return await this.prisma.adminTier1.create({
+      data,
+    });
   }
 }
