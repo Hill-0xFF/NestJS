@@ -35,7 +35,7 @@ export class BarbersController {
   @Get()
   async getBarbers(@Res() res: Response) {
     const barbers = await this.barbersService.findAllBarbers();
-    if (!barbers) {
+    if (!barbers.length) {
       return res
         .status(HttpStatus.BAD_REQUEST)
         .json({ message: `Não há barbeiros cadastrados!` });
