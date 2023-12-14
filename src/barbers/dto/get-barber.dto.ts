@@ -1,8 +1,8 @@
 import { IsNumber } from 'class-validator';
 
-export class getBarberParam {
+export class GetBarberParamDTO {
   @IsNumber(
-    { allowNaN: false, maxDecimalPlaces: 3 },
+    {},
     {
       message: `Parâmetro deve ser um número!`,
     }

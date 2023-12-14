@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { CreateBarbersDTO } from './dto/create-barber.dto';
+import { GetBarberParamDTO } from './dto/get-barber.dto';
 
 @Injectable()
 export class BarbersService {
@@ -19,7 +20,9 @@ export class BarbersService {
   }
 
   async fineOneBarber(id: number) {
-    return await this.prisma.adminTier1.findFirst({ where: { id: id } });
+    return await this.prisma.adminTier1.findFirst({
+      where: { id: id },
+    });
   }
 
   async create(data: CreateBarbersDTO) {

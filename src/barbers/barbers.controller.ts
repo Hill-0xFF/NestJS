@@ -10,7 +10,7 @@ import {
 import { BarbersService } from './barbers.service';
 import { CreateBarbersDTO } from './dto/create-barber.dto';
 import { Response } from 'express';
-import { getBarberParam } from './dto/get-barber.dto';
+import { GetBarberParamDTO } from './dto/get-barber.dto';
 
 @Controller('barbers')
 export class BarbersController {
@@ -54,7 +54,7 @@ export class BarbersController {
   }
 
   @Get(':id')
-  async getBarber(@Param('id') id: getBarberParam, @Res() res: Response) {
+  async getBarber(@Param('id') id: number, @Res() res: Response) {
     const barber = await this.barbersService.fineOneBarber(Number(id));
     if (!barber) {
       return res
