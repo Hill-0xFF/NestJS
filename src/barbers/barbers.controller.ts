@@ -8,23 +8,27 @@ export class BarbersController {
   constructor(private readonly barbersService: BarbersService) {}
 
   @Post()
-  create(@Body() createBarber: CreateBarbersDTO, @Res() res: Response) {
-    const barberExists = this.barbersService.findBarberEmail(
+  async create(@Body() createBarber: CreateBarbersDTO, @Res() res: Response) {
+    const exists = await this.barbersService.findBarberEmail(
       createBarber.email
     );
-    if (barberExists) {
+
+    if (exists) {
       return res
         .status(HttpStatus.BAD_REQUEST)
         .json({ message: `Barbeiro já cadastrado!` });
     }
 
-    const barber = this.barbersService.create(createBarber);
+    const barber = await this.barbersService.create(createBarber);
+
     if (!barber) {
       return res
         .status(HttpStatus.BAD_REQUEST)
         .json({ message: `Não foi possível adicionar novo barbeiro!` });
     }
 
-    return res.status(HttpStatus.OK).json({ message: `Novo barbeiro criado!` });
+    return res
+      .status(HttpStatus.CREATED)
+      .json({ message: `Novo barbeiro criado!` });
   }
 }

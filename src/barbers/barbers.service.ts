@@ -7,9 +7,11 @@ export class BarbersService {
   constructor(private prisma: PrismaService) {}
 
   async findBarberEmail(email: string) {
-    return await this.prisma.adminTier1.findFirst({
-      where: { email },
+    const barber = await this.prisma.adminTier1.findFirst({
+      where: { email: email },
     });
+    // console.log(barber);
+    return barber;
   }
 
   async findAllBarbers() {
