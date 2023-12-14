@@ -9,6 +9,15 @@ export class BarbersController {
 
   @Post()
   create(@Body() createBarber: CreateBarbersDTO, @Res() res: Response) {
+    const barberExists = this.barbersService.findBarberEmail(
+      createBarber.email
+    );
+    if (barberExists) {
+      return res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: `Barbeiro já cadastrado!` });
+    }
+
     const barber = this.barbersService.create(createBarber);
     if (!barber) {
       return res
